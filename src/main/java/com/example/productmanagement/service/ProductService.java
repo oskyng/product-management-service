@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -37,11 +36,10 @@ public class ProductService implements IProductService {
         List<ProductDto> productDtos = new ArrayList<>();
 
         Sort sort = Sort.by("id").ascending();
-        Pageable pageable = PageRequest.of(page, itemsPerPage, sort);
+        Pageable pageable = PageRequest.of(page - 1, itemsPerPage, sort);
         Page<Product> products = null;
 
         if (name != null && !name.isEmpty()) {
-            pageable = PageRequest.of(page, itemsPerPage, sort);
             products = productRepository.findAllByNameAndDeletedAtIsNotNull(pageable, name);
         } else {
             products = productRepository.findAllByDeletedAtIsNotNull(pageable);
@@ -94,7 +92,7 @@ public class ProductService implements IProductService {
             product.setName(request.getName());
             product.setDescription(request.getDescription());
             product.setCreatedAt(LocalDateTime.now());
-            product.setDeletedAt(LocalDateTime.now());
+            product.setUpdatedAt(LocalDateTime.now());
             Product savedProduct = productRepository.save(product);
             productDto = convertProductToDto(savedProduct);
         }

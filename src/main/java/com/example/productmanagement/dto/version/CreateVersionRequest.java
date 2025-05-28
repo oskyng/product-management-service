@@ -19,7 +19,6 @@ public class CreateVersionRequest {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future(message = "La fecha de lanzamiento debe ser mayor a hoy")
     private Date releaseDate;
-    @NotBlank(message = "El estado de la version no puede estar vacio")
     private StatusType status;
     private String notes;
 }

@@ -3,6 +3,7 @@ package com.example.productmanagement.controller;
 import com.example.productmanagement.dto.product.CreateProductRequest;
 import com.example.productmanagement.service.IProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,21 +23,21 @@ public class ProductController implements IProductController {
 
     @Override
     public ResponseEntity<Object> getProductById(Long id) {
-        return null;
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @Override
     public ResponseEntity<Object> createProduct(CreateProductRequest request) {
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(request));
     }
 
     @Override
     public ResponseEntity<Object> updateProduct(Long id, CreateProductRequest request) {
-        return null;
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.updateProduct(id, request));
     }
 
     @Override
     public ResponseEntity<Object> DeleteProduct(Long id) {
-        return null;
+        return ResponseEntity.ok(productService.deleteProduct(id));
     }
 }

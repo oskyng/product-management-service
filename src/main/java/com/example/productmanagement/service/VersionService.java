@@ -40,7 +40,7 @@ public class VersionService implements IVersionService {
         List<VersionDto> versionDtos = new ArrayList<>();
 
         Sort sort = Sort.by("id").ascending();
-        Pageable pageable = PageRequest.of(page, itemsPerPage, sort);
+        Pageable pageable = PageRequest.of(page - 1, itemsPerPage, sort);
 
         Product product = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException("Product not found with id - " + productId));
         Page<Version> versions = versionRepository.findAllByProduct(pageable, product);;
